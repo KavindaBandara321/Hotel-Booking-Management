@@ -1,7 +1,10 @@
+using Hotel_Booking_Management.IRepository;
+using Hotel_Booking_Management.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +35,30 @@ namespace Hotel_Booking_Management
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hotel_Booking_Management", Version = "v1" });
             });
+            services.AddDbContext<HotelDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Register repository
+            //services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddHostedService<BackgroundWorker>();
+            services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
+            services.AddScoped<ICalendarRepository, CalendarRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<ISpecialRequestRepository, SpecialRequestRepository>();
+            bool useXmlStorage = Configuration.GetValue<bool>("StorageOptions:UseXmlStorage");
+            services.AddScoped<IBookingRepository, XmlBookingRepository>();
+
+            //if (useXmlStorage)
+            //{
+            //    services.AddScoped<IBookingRepository, XmlBookingRepository>();
+            //}
+            //else
+            //{
+            //    services.AddScoped<IBookingRepository, BookingRepository>();
+            //}
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

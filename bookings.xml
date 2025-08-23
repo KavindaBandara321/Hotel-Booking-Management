@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ArrayOfBooking xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Booking>
+    <Id>1</Id>
+    <RoomId>1</RoomId>
+    <CheckInDate>2025-08-12T00:00:00</CheckInDate>
+    <CheckOutDate>2025-08-13T00:00:00</CheckOutDate>
+    <SpecialRequestIds />
+    <GuestName>Rubo None</GuestName>
+    <IsRecurring>false</IsRecurring>
+  </Booking>
+</ArrayOfBooking>

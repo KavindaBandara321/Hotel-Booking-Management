@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Hotel_Booking_Management.Dtos
+namespace Hotel_Booking_Management.Models
 {
-    public class BookingDto
+    public class Booking
     {
+
         public int Id { get; set; }
 
-        [Required]
         public int RoomId { get; set; }
 
-        [Required]
         public DateTime CheckInDate { get; set; }
 
-        [Required]
         public DateTime CheckOutDate { get; set; }
 
+        [NotMapped]
         public List<int> SpecialRequestIds { get; set; } = new();
 
-        [Required(ErrorMessage = "Guest name is required")]
-        [MinLength(5, ErrorMessage = "Guest name must be at least 5 characters long")]
         public string GuestName { get; set; }
 
         public bool IsRecurring { get; set; }
